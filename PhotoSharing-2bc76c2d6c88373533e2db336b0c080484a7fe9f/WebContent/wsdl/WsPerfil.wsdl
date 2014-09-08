@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://WS.PhotoSharing.unsa.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://WS.PhotoSharing.unsa.com" xmlns:intf="http://WS.PhotoSharing.unsa.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://WS.PhotoSharing.unsa.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getPerfil">
+    <complexType>
+     <sequence>
+      <element name="nick" type="xsd:string"/>
+      <element name="pass" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getPerfilResponse">
+    <complexType>
+     <sequence>
+      <element name="getPerfilReturn" type="impl:ArrayOf_xsd_anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_anyType">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getPerfilResponse">
+
+      <wsdl:part element="impl:getPerfilResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPerfilRequest">
+
+      <wsdl:part element="impl:getPerfil" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WsPerfil">
+
+      <wsdl:operation name="getPerfil">
+
+         <wsdl:input message="impl:getPerfilRequest" name="getPerfilRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getPerfilResponse" name="getPerfilResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WsPerfilSoapBinding" type="impl:WsPerfil">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getPerfil">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPerfilRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPerfilResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WsPerfilService">
+
+      <wsdl:port binding="impl:WsPerfilSoapBinding" name="WsPerfil">
+
+         <wsdlsoap:address location="http://localhost:8080/PhotoSharing/services/WsPerfil"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

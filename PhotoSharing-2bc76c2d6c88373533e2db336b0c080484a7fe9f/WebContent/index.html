@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Login PhotoSharing</title>
+ <link rel="stylesheet" href="css/login.css">
+
+
+ <script type="text/javascript">
+
+function checkform1 ( form )
+{
+	if (form.nickname.value === "" || form.password.value === "") {
+    alert( "Debes llenar los campos para logearte" );
+    return false ;
+  }
+  else return true;
+}
+
+function checkform2 ( form )
+{
+  if (form.nickname.value === "" || form.password.value === "" || form.nombre.value === "" ||
+      form.apellidos.value === "" || form.email.value === "") {
+    alert( "Debes llenar todos los campos para registrarte" );
+    form.nombre.focus();
+    return false ;
+  }
+  else return true;
+
+}
+
+</script>
+
+
+</head>
+
+<body>
+
+  <section class="container">
+<p id="status" style="position: absolute; top:30px; left:10px; padding: 10px; float: left; color: white; font-weight: bold;">Desde aqui se esta Conectando</p>
+<div id="map" style="position: absolute; top:55px; left:10px; padding: 10px; float: left;"></div>
+    
+    <div class="login">
+    
+      <h1>Log-in en PhotoSharing</h1>
+	<form id="login" action="LoginController" method="post" onsubmit="return checkform1(this);">
+        <p><input type="text" name="nickname" value="" placeholder="Username"></p>
+        <p><input type="password" name="password" value="" placeholder="Password"></p>
+        
+        <p class="submit"><input type="submit" id="submit" value="Log in"></p>
+      </form>
+    </div>
+   
+  </section>
+  
+  
+
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+
+<script>
+
+function success(position) {
+  var status = document.getElementById('status');
+
+  var mapcanvas = document.createElement('div');
+  mapcanvas.id = 'mapcanvas';
+  mapcanvas.style.height = '300px';
+  mapcanvas.style.width = '300px';  
+
+  document.getElementById('map').appendChild(mapcanvas);
+  //mi punto
+  var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  //epis
+  //var punto = new google.maps.LatLng(-16.4066076,-71.524283);
+  
+  var myOptions = {
+    zoom: 17,
+    center: latlng,
+    mapTypeControl: false, 
+    //navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+
+  var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
+
+  var marker = new google.maps.Marker({
+      position: latlng,
+      map: map,
+      title:"estas aquí."
+  });
+  
+ 
+}
+
+function error(msg) {
+  var status = document.getElementById('status');
+  status.innerHTML= "Error [" + error.code + "]: " + error.message;  
+}
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(success, error,{maximumAge:60000, timeout: 4000});
+} else {
+  error('Su navegador no tiene soporte para su geolocalización.');
+}
+
+
+
+</script>
+
+
+<section class="container">
+	<div class="login">
+		<h1>Nuevo usuario? Regístrate!</h1>
+		<form name="NewUser" action="NewUserController" method="post" onsubmit="return checkform2(this);">
+	
+			<p> <input type="text" name="nombre" placeholder="Nombres"/> </p>
+			<p> <input type="text" name="apellidos" placeholder="Apellidos" /> </p>
+			<p> <input type="text" name="email" placeholder="Email"/> </p>
+			<p> <input type="text" name="nickname" placeholder="Nickname" /> </p>
+			<p> <input type="password" name="password" placeholder="Password" /> </p>
+			<p class="submit"> <input type="submit" value="Registrar" /> </p>
+
+		</form>
+	</div>
+</section>
+
+</body>
+</html>

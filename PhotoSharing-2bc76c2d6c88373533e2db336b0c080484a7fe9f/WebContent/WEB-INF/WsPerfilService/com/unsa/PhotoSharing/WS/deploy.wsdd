@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from WsPerfilService WSDL service -->
+
+  <service name="WsPerfil" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://WS.PhotoSharing.unsa.com"/>
+      <parameter name="wsdlServiceElement" value="WsPerfilService"/>
+      <parameter name="schemaQualified" value="http://WS.PhotoSharing.unsa.com"/>
+      <parameter name="wsdlServicePort" value="WsPerfil"/>
+      <parameter name="className" value="com.unsa.PhotoSharing.WS.WsPerfil"/>
+      <parameter name="wsdlPortType" value="WsPerfil"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://WS.PhotoSharing.unsa.com" xmlns:retNS="http://WS.PhotoSharing.unsa.com" xmlns:rtns="http://WS.PhotoSharing.unsa.com" xmlns:tns="http://WS.PhotoSharing.unsa.com" name="getPerfil" qname="operNS:getPerfil" returnQName="retNS:getPerfilReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+        <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" xmlns:pns="http://WS.PhotoSharing.unsa.com" qname="pns:nick" type="tns:string"/>
+        <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" xmlns:pns="http://WS.PhotoSharing.unsa.com" qname="pns:pass" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="getPerfil"/>
+
+      <typeMapping xmlns:ns="http://WS.PhotoSharing.unsa.com" qname="ns:&gt;getPerfilResponse" type="java:com.unsa.PhotoSharing.WS.GetPerfilResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://WS.PhotoSharing.unsa.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_anyType" type="java:java.lang.Object[]" innerType="cmp-ns:anyType" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://WS.PhotoSharing.unsa.com" qname="ns:&gt;getPerfil" type="java:com.unsa.PhotoSharing.WS.GetPerfil" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
